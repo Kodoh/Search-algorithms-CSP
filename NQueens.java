@@ -10,6 +10,7 @@ public class NQueens {
     }
 
     public static void solveFourQueens() {
+        // 1D array to save space (each row needs a Queen hence just store where queen is on that row).
         int[] positions = new int[n];
         List<int[]> solutions = new ArrayList<>(); 
 
@@ -27,18 +28,21 @@ public class NQueens {
 
     public static void generatePermutations(int[] positions, int row, List<int[]> solutions) {
         if (row == n) {
+            // if final row and we have a valid position then add to solutions
             if (isValid(positions)) {
                 solutions.add(positions.clone()); // Add valid solution
             }
             return;
         }
-
+        
+        // if not final row / not valid just keep assigning values
         for (int col = 0; col < n; col++) {
             positions[row] = col;
             generatePermutations(positions, row + 1, solutions);
         }
     }
 
+    // if on diagnols / horizontal / vertical then not valid else valid
     public static boolean isValid(int[] positions) {
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
@@ -50,6 +54,7 @@ public class NQueens {
         return true;
     }
 
+    // displaying as an array would be boring no?
     public static void printSolution(int[] positions) {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
